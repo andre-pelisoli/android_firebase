@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.pelisoli.android_firebase.ui.MainActivity">
+    tools:context="br.com.pelisoli.android_firebase.view.MainActivity">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"

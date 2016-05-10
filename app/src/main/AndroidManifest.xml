@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="br.com.pelisoli.android_firebase.ShoppingApplication">
-        <activity android:name="br.com.pelisoli.android_firebase.ui.MainActivity">
+        <activity android:name="br.com.pelisoli.android_firebase.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

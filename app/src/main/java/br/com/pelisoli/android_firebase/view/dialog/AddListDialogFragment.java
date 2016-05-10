@@ -1,4 +1,5 @@
-package br.com.pelisoli.android_firebase.ui;
+package br.com.pelisoli.android_firebase.view.dialog;
+
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,26 +14,33 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
+import br.com.pelisoli.android_firebase.AddListDialogPresenter;
 import br.com.pelisoli.android_firebase.R;
+import br.com.pelisoli.android_firebase.utils.Constants;
+import br.com.pelisoli.android_firebase.view.ShoppingDialogContract;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Adds a new meal
+ * Adds a new shopping list
  */
-public class AddMealDialogFragment extends DialogFragment {
-    @BindView(R.id.edit_text_meal_name)
-    EditText editTextMealName;
+public class AddListDialogFragment extends DialogFragment implements ShoppingDialogContract.View {
+    @BindView(R.id.edit_text_list_name)
+    EditText mEditTextListName;
+
+    ShoppingDialogContract.Presenter mPresenter;
 
     /**
      * Public static constructor that creates fragment and
      * passes a bundle with data into it when adapter is created
      */
-    public static AddMealDialogFragment newInstance() {
-        AddMealDialogFragment addMealDialogFragment = new AddMealDialogFragment();
+    public static AddListDialogFragment newInstance() {
+        AddListDialogFragment addListDialogFragment = new AddListDialogFragment();
         Bundle bundle = new Bundle();
-        addMealDialogFragment.setArguments(bundle);
-        return addMealDialogFragment;
+        addListDialogFragment.setArguments(bundle);
+        return addListDialogFragment;
     }
 
     /**
@@ -41,6 +49,8 @@ public class AddMealDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter = new AddListDialogPresenter(new Firebase(Constants.FIREBASE_ROOT_URL), this);
     }
 
     /**
@@ -54,35 +64,35 @@ public class AddMealDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        /* Use the Builder class for convenient dialog construction */
+        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.CustomTheme_Dialog);
-        /* Get the layout inflater */
+        // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View rootView = inflater.inflate(R.layout.dialog_add_meal, null);
+        View rootView = inflater.inflate(R.layout.dialog_add_list, null);
 
         ButterKnife.bind(this, rootView);
 
         /**
-         * Call addMeal() when user taps "Done" keyboard action
+         * Call addShoppingList() when user taps "Done" keyboard action
          */
-        editTextMealName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mEditTextListName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    addMeal();
+                    mPresenter.createEntry(mEditTextListName.getText().toString());
                 }
                 return true;
             }
         });
 
         /* Inflate and set the layout for the dialog */
-        /* Pass null as the parent view because its going in the dialog layout */
+        /* Pass null as the parent view because its going in the dialog layout*/
         builder.setView(rootView)
                 /* Add action buttons */
                 .setPositiveButton(R.string.positive_button_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        addMeal();
+                       mPresenter.createEntry(mEditTextListName.getText().toString());
                     }
                 });
 
@@ -90,8 +100,15 @@ public class AddMealDialogFragment extends DialogFragment {
     }
 
     /**
-     * Add new meal
+     * Add new active list
      */
-    public void addMeal() {
+    public void addShoppingList() {
+
+    }
+
+    @Override
+    public void showEntry(String name) {
+        //TODO do something
     }
 }
+

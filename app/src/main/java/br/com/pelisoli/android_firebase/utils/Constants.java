@@ -7,6 +7,6 @@ import br.com.pelisoli.android_firebase.BuildConfig;
  */
 public class Constants {
 
-    private static final String FIREBASE_ROOT_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
+    public static final String FIREBASE_ROOT_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
 
 }

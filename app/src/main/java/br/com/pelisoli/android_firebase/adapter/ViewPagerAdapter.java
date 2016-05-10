@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import br.com.pelisoli.android_firebase.ui.MealFragment;
-import br.com.pelisoli.android_firebase.ui.ShoppingListFragment;
+import br.com.pelisoli.android_firebase.view.fragment.MealFragment;
+import br.com.pelisoli.android_firebase.view.fragment.ShoppingListFragment;
 
 /**
  * Created by pelisoli on 27/04/16.

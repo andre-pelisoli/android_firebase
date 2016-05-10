@@ -1,4 +1,4 @@
-package br.com.pelisoli.android_firebase.ui;
+package br.com.pelisoli.android_firebase.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import br.com.pelisoli.android_firebase.R;
+import br.com.pelisoli.android_firebase.view.dialog.AddListDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

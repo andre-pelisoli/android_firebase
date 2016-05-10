@@ -1,4 +1,4 @@
-package br.com.pelisoli.android_firebase.ui;
+package br.com.pelisoli.android_firebase.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
