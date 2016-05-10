@@ -1,4 +1,4 @@
-package firebase.pelisoli.com.br.android_firebase;
+package br.com.pelisoli.android_firebase;
 
 import android.app.Application;
 

@@ -1,6 +1,6 @@
-package firebase.pelisoli.com.br.android_firebase.utils;
+package br.com.pelisoli.android_firebase.utils;
 
-import firebase.pelisoli.com.br.android_firebase.BuildConfig;
+import br.com.pelisoli.android_firebase.BuildConfig;
 
 /**
  * Cosntants that will be used in the project
