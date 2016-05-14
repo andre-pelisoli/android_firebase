@@ -1,8 +1,8 @@
-package br.com.pelisoli.android_firebase;
+package br.com.pelisoli.android_firebase.presenter;
 
 import com.firebase.client.Firebase;
 
-import br.com.pelisoli.android_firebase.view.ShoppingDialogContract;
+import br.com.pelisoli.android_firebase.view.contract.ShoppingDialogContract;
 
 /**
  * Created by pelisoli on 09/05/16.

@@ -1,4 +1,4 @@
-package br.com.pelisoli.android_firebase.view;
+package br.com.pelisoli.android_firebase.view.contract;
 
 /**
  * Created by pelisoli on 09/05/16.

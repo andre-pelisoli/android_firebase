@@ -16,10 +16,10 @@ import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
-import br.com.pelisoli.android_firebase.AddListDialogPresenter;
+import br.com.pelisoli.android_firebase.presenter.AddListDialogPresenter;
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.utils.Constants;
-import br.com.pelisoli.android_firebase.view.ShoppingDialogContract;
+import br.com.pelisoli.android_firebase.view.contract.ShoppingDialogContract;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
