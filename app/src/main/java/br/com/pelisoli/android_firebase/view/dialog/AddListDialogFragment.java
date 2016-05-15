@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
+import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.AddListDialogPresenter;
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.utils.Constants;
@@ -79,7 +80,10 @@ public class AddListDialogFragment extends DialogFragment implements ShoppingDia
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    mPresenter.createEntry(mEditTextListName.getText().toString());
+                    ShoppingList shoppingList =
+                            new ShoppingList(mEditTextListName.getText().toString(), "Temporary owner");
+
+                    mPresenter.createEntry(shoppingList);
                 }
                 return true;
             }
@@ -92,22 +96,18 @@ public class AddListDialogFragment extends DialogFragment implements ShoppingDia
                 .setPositiveButton(R.string.positive_button_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                       mPresenter.createEntry(mEditTextListName.getText().toString());
+                        ShoppingList shoppingList =
+                                new ShoppingList(mEditTextListName.getText().toString(), "Temporary owner");
+
+                       mPresenter.createEntry(shoppingList);
                     }
                 });
 
         return builder.create();
     }
 
-    /**
-     * Add new active list
-     */
-    public void addShoppingList() {
-
-    }
-
     @Override
-    public void showEntry(String name) {
+    public void showEntry(ShoppingList shoppingList) {
         //TODO do something
     }
 }

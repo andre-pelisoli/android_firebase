@@ -5,6 +5,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.view.contract.ShoppingListFragmentContract;
 
 /**
@@ -26,7 +27,7 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
         Firebase firebaseRef;
 
         if (mFirebase != null) {
-            firebaseRef = mFirebase.child("listName");
+            firebaseRef = mFirebase.child("activeList");
 
             if (firebaseRef != null) {
                 firebaseRef.addValueEventListener(new ValueEventListener() {
@@ -34,7 +35,7 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         if (mView != null) {
-                            mView.showEntry((String) dataSnapshot.getValue());
+                            mView.showEntry( dataSnapshot.getValue(ShoppingList.class));
                         }
                     }
 

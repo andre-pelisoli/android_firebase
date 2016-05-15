@@ -2,6 +2,7 @@ package br.com.pelisoli.android_firebase.presenter;
 
 import com.firebase.client.Firebase;
 
+import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.view.contract.ShoppingDialogContract;
 
 /**
@@ -18,11 +19,11 @@ public class AddListDialogPresenter implements ShoppingDialogContract.Presenter 
     }
 
     @Override
-    public void createEntry(String name) {
-        mFirebase.child("listName").setValue(name);
+    public void createEntry(ShoppingList shoppingList) {
+        mFirebase.child("activeList").setValue(shoppingList);
 
         if(mView != null){
-            mView.showEntry(name);
+            mView.showEntry(shoppingList);
         }
     }
 }

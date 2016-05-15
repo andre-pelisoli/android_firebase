@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pelisoli.android_firebase.R;
+import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.ShoppingListPresenter;
 import br.com.pelisoli.android_firebase.adapter.ShoppingListAdapter;
 import br.com.pelisoli.android_firebase.utils.Constants;
@@ -40,7 +41,7 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
 
     ShoppingListAdapter mShoppingListAdapter;
 
-    List<String> itemsList = new ArrayList<>();
+    List<ShoppingList> itemsList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
     }
 
     @Override
-    public void showEntry(String entry) {
+    public void showEntry(ShoppingList entry) {
         mShoppingListAdapter.addNewItem(entry);
     }
 }

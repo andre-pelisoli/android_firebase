@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pelisoli.android_firebase.R;
+import br.com.pelisoli.android_firebase.model.ShoppingList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -19,15 +20,12 @@ import butterknife.ButterKnife;
  */
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ItemHolder> {
 
-    private List<String> itemsList;
-
-    private Context mContext;
+    private List<ShoppingList> mShoppingLists;
 
     private LayoutInflater mLayoutInflater;
 
-    public ShoppingListAdapter(List<String> itemsList, Context context) {
-        this.itemsList = itemsList;
-        mContext = context;
+    public ShoppingListAdapter(List<ShoppingList> itemsList, Context context) {
+        this.mShoppingLists = itemsList;
 
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -41,35 +39,41 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(ItemHolder holder, int position) {
-        holder.mItemName.setText(itemsList.get(position));
+        holder.mItemName.setText(mShoppingLists.get(position).getListName());
+        holder.mItemOwner.setText(mShoppingLists.get(position).getOwner());
     }
 
     @Override
     public int getItemCount() {
         int count = 0;
 
-        if (itemsList != null) {
-            count = itemsList.size();
+        if (mShoppingLists != null) {
+            count = mShoppingLists.size();
         }
 
         return count;
     }
 
-    public void addNewItem(String item){
-        if (itemsList != null) {
-            itemsList.add(item);
-        }else {
-            itemsList = new ArrayList<>();
-            itemsList.add(item);
-        }
+    public void addNewItem(ShoppingList shoppingList){
+        if (shoppingList != null) {
+            if (mShoppingLists != null) {
+                mShoppingLists.add(shoppingList);
+            }else {
+                mShoppingLists = new ArrayList<>();
+                mShoppingLists.add(shoppingList);
+            }
 
-        notifyItemInserted(itemsList.size());
+            notifyItemInserted(mShoppingLists.size());
+        }
     }
 
     public static class ItemHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.item_name)
         TextView mItemName;
+
+        @BindView(R.id.item_owner)
+        TextView mItemOwner;
 
         public ItemHolder(View itemView) {
             super(itemView);
