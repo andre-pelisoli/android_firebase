@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.firebase.client.ServerValue;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by pelisoli on 15/05/16.
  */
 public class ShoppingList {
+    private UUID id;
 
     private String listName;
 
@@ -17,6 +19,7 @@ public class ShoppingList {
     private HashMap<String, Object> dateLastChanged;
 
     public ShoppingList(String listName, String owner) {
+        this.id = UUID.randomUUID();
         this.listName = listName;
         this.owner = owner;
         this.dateLastChanged = new HashMap<>();
@@ -24,6 +27,10 @@ public class ShoppingList {
     }
 
     public ShoppingList() {
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getListName() {

@@ -67,7 +67,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 mShoppingLists.add(shoppingList);
             }
 
-            notifyItemInserted(mShoppingLists.size());
+            notifyItemInserted(mShoppingLists.size()-1);
         }
     }
 

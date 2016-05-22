@@ -59,10 +59,11 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mShoppingListAdapter);
 
-        mShoppingListPresenter = new ShoppingListPresenter(new Firebase(Constants.FIREBASE_ROOT_URL), this);
+        mShoppingListPresenter = new ShoppingListPresenter(itemsList,
+                new Firebase(Constants.FIREBASE_ROOT_URL),
+                this);
+
         mShoppingListPresenter.startListeningFirebase();
-
-
     }
 
     @OnClick(R.id.fab)

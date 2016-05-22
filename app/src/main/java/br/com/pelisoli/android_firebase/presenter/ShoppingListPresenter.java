@@ -5,6 +5,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.List;
+
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.view.contract.ShoppingListFragmentContract;
 
@@ -13,11 +15,14 @@ import br.com.pelisoli.android_firebase.view.contract.ShoppingListFragmentContra
  */
 public class ShoppingListPresenter implements ShoppingListFragmentContract.Presenter {
 
+    List<ShoppingList> mShoppingList;
+
     Firebase mFirebase;
 
     ShoppingListFragmentContract.View mView;
 
-    public ShoppingListPresenter(Firebase firebase, ShoppingListFragmentContract.View view) {
+    public ShoppingListPresenter(List<ShoppingList> shoppingList, Firebase firebase, ShoppingListFragmentContract.View view) {
+        mShoppingList = shoppingList;
         mFirebase = firebase;
         mView = view;
     }
@@ -35,7 +40,11 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         if (mView != null) {
-                            mView.showEntry(dataSnapshot.getValue(ShoppingList.class));
+                            ShoppingList shoppingItem = dataSnapshot.getValue(ShoppingList.class);
+
+                            if(!itemExists(shoppingItem)) {
+                                mView.showEntry(shoppingItem);
+                            }
                         }
                     }
 
@@ -46,5 +55,20 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
                 });
             }
         }
+    }
+
+    private boolean itemExists(ShoppingList shoppingItem){
+        boolean status = false;
+
+        if (mShoppingList != null) {
+            for (ShoppingList item : mShoppingList) {
+                if(item.getId().toString().equals(shoppingItem.getId().toString())){
+                    status = true;
+                    break;
+                }
+            }
+        }
+
+        return status;
     }
 }
