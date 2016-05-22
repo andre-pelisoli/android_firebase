@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
+import br.com.pelisoli.android_firebase.utils.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,6 +43,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     public void onBindViewHolder(ItemHolder holder, int position) {
         holder.mItemName.setText(mShoppingLists.get(position).getListName());
         holder.mItemOwner.setText(mShoppingLists.get(position).getOwner());
+        holder.mItemTimestamp.setText(Utils.SIMPLE_DATE_FORMAT.format(
+                new Date((mShoppingLists.get(position).getDateLastChangedLong()))));
     }
 
     @Override
@@ -74,6 +78,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
         @BindView(R.id.item_owner)
         TextView mItemOwner;
+
+        @BindView(R.id.item_timestamp)
+        TextView mItemTimestamp;
 
         public ItemHolder(View itemView) {
             super(itemView);

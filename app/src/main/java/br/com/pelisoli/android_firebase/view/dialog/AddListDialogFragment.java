@@ -15,10 +15,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
+import com.firebase.client.ServerValue;
 
+import java.util.HashMap;
+
+import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.AddListDialogPresenter;
-import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.contract.ShoppingDialogContract;
 import butterknife.BindView;
@@ -80,6 +83,9 @@ public class AddListDialogFragment extends DialogFragment implements ShoppingDia
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    HashMap<String, Object> timestamp = new HashMap<>();
+                    timestamp.put("date", ServerValue.TIMESTAMP);
+
                     ShoppingList shoppingList =
                             new ShoppingList(mEditTextListName.getText().toString(), "Temporary owner");
 
@@ -96,10 +102,13 @@ public class AddListDialogFragment extends DialogFragment implements ShoppingDia
                 .setPositiveButton(R.string.positive_button_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        HashMap<String, Object> timestamp = new HashMap<>();
+                        timestamp.put("date", ServerValue.TIMESTAMP);
+
                         ShoppingList shoppingList =
                                 new ShoppingList(mEditTextListName.getText().toString(), "Temporary owner");
 
-                       mPresenter.createEntry(shoppingList);
+                        mPresenter.createEntry(shoppingList);
                     }
                 });
 

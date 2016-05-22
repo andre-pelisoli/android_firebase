@@ -25,4 +25,6 @@
     <string name="hint_add_shopping_list">Create a list</string>
 
     <string name="positive_button_create">Create</string>
+
+    <string name="owner_text">Created by</string>
 </resources>

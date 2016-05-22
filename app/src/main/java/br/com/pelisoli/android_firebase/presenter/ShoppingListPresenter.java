@@ -35,7 +35,7 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         if (mView != null) {
-                            mView.showEntry( dataSnapshot.getValue(ShoppingList.class));
+                            mView.showEntry(dataSnapshot.getValue(ShoppingList.class));
                         }
                     }
 

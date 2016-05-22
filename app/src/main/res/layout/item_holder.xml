@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
@@ -12,6 +12,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/item_owner"/>
+        android:id="@+id/item_owner_text"
+        android:text="@string/owner_text"
+        android:layout_below="@+id/item_name"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_owner"
+        android:textStyle="bold"
+        android:paddingLeft="7dp"
+        android:layout_toRightOf="@+id/item_owner_text"
+        android:layout_below="@+id/item_name"
+        android:text="owner"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_timestamp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/item_owner"
+        android:layout_below="@+id/item_name"
+        android:text="time"
+    android:paddingLeft="15dp"/>
+
+
+</RelativeLayout>
