@@ -9,10 +9,16 @@ public interface ShoppingListFragmentContract {
 
     interface View{
         void showEntry(ShoppingList entry);
+
+        void showDetailFragment();
+
+        void showAddDialog();
     }
 
     interface Presenter{
         void startListeningFirebase();
+
+        void openDetailFragment();
     }
 
 }

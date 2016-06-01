@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_owner_text"
-        android:text="@string/owner_text"
+        android:text="@string/created_by"
         android:layout_below="@+id/item_name"/>
 
     <TextView

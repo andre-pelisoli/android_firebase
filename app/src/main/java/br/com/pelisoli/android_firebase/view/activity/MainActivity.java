@@ -1,4 +1,4 @@
-package br.com.pelisoli.android_firebase.view;
+package br.com.pelisoli.android_firebase.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), NUMBER_TABS);
         mViewPager.setAdapter(mViewPagerAdapter);
 
-        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.tab_shoppinglist));
-        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.tab_meals));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.pager_title_shopping_lists));
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.pager_title_meals));
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 

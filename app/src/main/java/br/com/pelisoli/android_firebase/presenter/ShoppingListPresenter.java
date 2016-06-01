@@ -57,6 +57,11 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
         }
     }
 
+    @Override
+    public void openDetailFragment() {
+        mView.showDetailFragment();
+    }
+
     private boolean itemExists(ShoppingList shoppingItem){
         boolean status = false;
 

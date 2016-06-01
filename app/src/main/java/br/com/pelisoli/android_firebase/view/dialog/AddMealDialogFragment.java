@@ -24,10 +24,6 @@ public class AddMealDialogFragment extends DialogFragment {
     @BindView(R.id.edit_text_meal_name)
     EditText editTextMealName;
 
-    /**
-     * Public static constructor that creates fragment and
-     * passes a bundle with data into it when adapter is created
-     */
     public static AddMealDialogFragment newInstance() {
         AddMealDialogFragment addMealDialogFragment = new AddMealDialogFragment();
         Bundle bundle = new Bundle();
@@ -35,17 +31,12 @@ public class AddMealDialogFragment extends DialogFragment {
         return addMealDialogFragment;
     }
 
-    /**
-     * Initialize instance variables with data from bundle
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    /**
-     * Open the keyboard automatically when the dialog fragment is opened
-     */
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -62,9 +53,6 @@ public class AddMealDialogFragment extends DialogFragment {
 
         ButterKnife.bind(this, rootView);
 
-        /**
-         * Call addMeal() when user taps "Done" keyboard action
-         */
         editTextMealName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -75,10 +63,7 @@ public class AddMealDialogFragment extends DialogFragment {
             }
         });
 
-        /* Inflate and set the layout for the dialog */
-        /* Pass null as the parent view because its going in the dialog layout */
         builder.setView(rootView)
-                /* Add action buttons */
                 .setPositiveButton(R.string.positive_button_create, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -89,9 +74,6 @@ public class AddMealDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    /**
-     * Add new meal
-     */
     public void addMeal() {
     }
 }

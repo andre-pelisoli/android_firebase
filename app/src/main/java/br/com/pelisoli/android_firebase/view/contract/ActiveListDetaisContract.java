@@ -3,17 +3,16 @@ package br.com.pelisoli.android_firebase.view.contract;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 
 /**
- * Created by pelisoli on 09/05/16.
+ * Created by pelisoli on 31/05/16.
  */
-public interface ShoppingDialogContract {
+public interface ActiveListDetaisContract {
 
     interface View{
-        void showEntry(ShoppingList shoppingList);
+        void showEditDialog(String nameList);
     }
 
     interface Presenter{
-        void createEntry(ShoppingList shoppingList);
+        void openEditDialog(ShoppingList shoppingList);
     }
-
 
 }

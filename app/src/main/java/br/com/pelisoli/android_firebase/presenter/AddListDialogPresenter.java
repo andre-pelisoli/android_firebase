@@ -3,17 +3,17 @@ package br.com.pelisoli.android_firebase.presenter;
 import com.firebase.client.Firebase;
 
 import br.com.pelisoli.android_firebase.model.ShoppingList;
-import br.com.pelisoli.android_firebase.view.contract.ShoppingDialogContract;
+import br.com.pelisoli.android_firebase.view.contract.AddShoppingDialogContract;
 
 /**
  * Created by pelisoli on 09/05/16.
  */
-public class AddListDialogPresenter implements ShoppingDialogContract.Presenter {
+public class AddListDialogPresenter implements AddShoppingDialogContract.Presenter {
     Firebase mFirebase;
 
-    ShoppingDialogContract.View mView;
+    AddShoppingDialogContract.View mView;
 
-    public AddListDialogPresenter(Firebase firebase, ShoppingDialogContract.View view) {
+    public AddListDialogPresenter(Firebase firebase, AddShoppingDialogContract.View view) {
         mFirebase = firebase;
         mView = view;
     }
@@ -23,7 +23,7 @@ public class AddListDialogPresenter implements ShoppingDialogContract.Presenter 
         mFirebase.child("activeList").setValue(shoppingList);
 
         if(mView != null){
-            mView.showEntry(shoppingList);
+            mView.closeDialog(shoppingList);
         }
     }
 }

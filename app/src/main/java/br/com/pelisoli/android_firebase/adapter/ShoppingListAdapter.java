@@ -14,6 +14,7 @@ import java.util.List;
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.utils.Utils;
+import br.com.pelisoli.android_firebase.view.contract.IList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,10 +27,12 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     private LayoutInflater mLayoutInflater;
 
-    public ShoppingListAdapter(List<ShoppingList> itemsList, Context context) {
-        this.mShoppingLists = itemsList;
+    private IList mIList;
 
+    public ShoppingListAdapter(List<ShoppingList> itemsList, IList iList, Context context) {
+        mShoppingLists = itemsList;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mIList = iList;
     }
 
     @Override
@@ -71,7 +74,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         }
     }
 
-    public static class ItemHolder extends RecyclerView.ViewHolder{
+    public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.item_name)
         TextView mItemName;
@@ -85,6 +88,13 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         public ItemHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mIList.onListClicked(mShoppingLists.get(getLayoutPosition()));
         }
     }
 
