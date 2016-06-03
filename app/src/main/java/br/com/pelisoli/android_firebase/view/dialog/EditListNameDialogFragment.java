@@ -55,12 +55,6 @@ public class EditListNameDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mFirebase = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
-        mEditListNamePresenter = new EditListNamePresenter(mFirebase);
-
-        Bundle bundle = getArguments();
-        currentName = bundle.getString("listName");
     }
 
 
@@ -68,6 +62,14 @@ public class EditListNameDialogFragment extends DialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+        mFirebase = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+        mEditListNamePresenter = new EditListNamePresenter(mFirebase);
+
+        Bundle bundle = getArguments();
+        currentName = bundle.getString("listName");
+
+        mEdtListName.setText(currentName);
     }
 
     @Override

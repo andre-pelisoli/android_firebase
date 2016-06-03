@@ -6,6 +6,8 @@ import com.firebase.client.ServerValue;
 import java.util.HashMap;
 import java.util.UUID;
 
+import br.com.pelisoli.android_firebase.utils.Constants;
+
 /**
  * Created by pelisoli on 15/05/16.
  */
@@ -16,14 +18,14 @@ public class ShoppingList {
 
     private String owner;
 
-    private HashMap<String, Object> dateLastChanged;
+    private HashMap<String, Object> timestamp;
 
     public ShoppingList(String listName, String owner) {
         this.id = UUID.randomUUID();
         this.listName = listName;
         this.owner = owner;
-        this.dateLastChanged = new HashMap<>();
-        this.dateLastChanged.put("date", ServerValue.TIMESTAMP);
+        this.timestamp = new HashMap<>();
+        this.timestamp.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
     }
 
     public ShoppingList() {
@@ -49,19 +51,19 @@ public class ShoppingList {
         this.owner = owner;
     }
 
-    public HashMap<String, Object> getDateLastChanged() {
-        return dateLastChanged;
+    public HashMap<String, Object> getTimestamp() {
+        return timestamp;
     }
 
     @JsonIgnore
     public long getDateLastChangedLong() {
-        if (dateLastChanged != null) {
-            return (long)dateLastChanged.get("date");
+        if (timestamp != null) {
+            return (long) timestamp.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
         }
 
-        dateLastChanged = new HashMap<String, Object>();
-        dateLastChanged.put("date", ServerValue.TIMESTAMP);
+        timestamp = new HashMap<String, Object>();
+        timestamp.put("date", ServerValue.TIMESTAMP);
 
-        return (long)dateLastChanged.get("date");
+        return (long) timestamp.get("date");
     }
 }
