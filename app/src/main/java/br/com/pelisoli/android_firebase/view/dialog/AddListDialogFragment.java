@@ -60,7 +60,7 @@ public class AddListDialogFragment extends DialogFragment implements AddShopping
 
         ButterKnife.bind(this, rootView);
 
-        mFirebase = new Firebase(Constants.FIREBASE_URL);
+        mFirebase = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
         mAddListDialogPresenter = new AddListDialogPresenter(mFirebase, this);
 
         mEditTextListName.setOnEditorActionListener(new TextView.OnEditorActionListener() {

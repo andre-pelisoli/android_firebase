@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.firebase.client.ServerValue;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 import br.com.pelisoli.android_firebase.utils.Constants;
 
@@ -12,27 +11,24 @@ import br.com.pelisoli.android_firebase.utils.Constants;
  * Created by pelisoli on 15/05/16.
  */
 public class ShoppingList {
-    private UUID id;
-
     private String listName;
 
     private String owner;
 
-    private HashMap<String, Object> timestamp;
+    private HashMap<String, Object> timestampLastChanged;
+
+    private HashMap<String, Object> timestampCreated;
 
     public ShoppingList(String listName, String owner) {
-        this.id = UUID.randomUUID();
         this.listName = listName;
         this.owner = owner;
-        this.timestamp = new HashMap<>();
-        this.timestamp.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+        this.timestampCreated = new HashMap<>();
+        this.timestampLastChanged = new HashMap<>();
+        this.timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP_CREATED, ServerValue.TIMESTAMP);
+        this.timestampLastChanged.put(Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, ServerValue.TIMESTAMP);
     }
 
     public ShoppingList() {
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getListName() {
@@ -51,19 +47,23 @@ public class ShoppingList {
         this.owner = owner;
     }
 
-    public HashMap<String, Object> getTimestamp() {
-        return timestamp;
+    public HashMap<String, Object> getTimestampLastChanged() {
+        return timestampLastChanged;
+    }
+
+    public HashMap<String, Object> getTimestampCreated() {
+        return timestampCreated;
     }
 
     @JsonIgnore
-    public long getDateLastChangedLong() {
-        if (timestamp != null) {
-            return (long) timestamp.get(Constants.FIREBASE_PROPERTY_TIMESTAMP);
-        }
+    public long getTimestampLastChangedLong() {
 
-        timestamp = new HashMap<String, Object>();
-        timestamp.put("date", ServerValue.TIMESTAMP);
-
-        return (long) timestamp.get("date");
+        return (long) timestampLastChanged.get(Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED);
     }
+
+    @JsonIgnore
+    public long getTimestampCreatedLong() {
+        return (long) timestampLastChanged.get(Constants.FIREBASE_PROPERTY_TIMESTAMP_CREATED);
+    }
+
 }

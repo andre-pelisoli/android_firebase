@@ -25,13 +25,12 @@ public class EditListNamePresenter implements EditListNameContract.Presenter {
             if(!oldName.contentEquals(newName)){
                 if (mFirebaseRef != null) {
                     HashMap<String, Object> updateObject = new HashMap<>();
+                    HashMap<String, Object> changedTimestampMap = new HashMap<>();
+
+                    changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, ServerValue.TIMESTAMP);
                     updateObject.put(Constants.FIREBASE_PROPERTY_LIST_NAME, newName);
 
-                    HashMap<String, Object> changedTimestampMap = new HashMap<>();
-                    changedTimestampMap.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-
-                    updateObject.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, changedTimestampMap);
-
+                    updateObject.put(Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
                     mFirebaseRef.updateChildren(updateObject);
                 }
             }

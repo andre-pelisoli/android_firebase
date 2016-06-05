@@ -20,10 +20,18 @@ public class AddListDialogPresenter implements AddShoppingDialogContract.Present
 
     @Override
     public void createEntry(ShoppingList shoppingList) {
-        mFirebase.child("activeList").setValue(shoppingList);
+        if (shoppingList != null) {
+            Firebase newFirebaseRef = mFirebase.push();
 
-        if(mView != null){
-            mView.closeDialog(shoppingList);
+            /* Save listsRef.push() to maintain same random Id */
+            final String listId = newFirebaseRef.getKey();
+
+            newFirebaseRef.setValue(shoppingList);
+
+            if(mView != null){
+                mView.closeDialog(shoppingList);
+            }
         }
+
     }
 }

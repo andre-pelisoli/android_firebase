@@ -1,5 +1,7 @@
 package br.com.pelisoli.android_firebase.view.contract;
 
+import java.util.List;
+
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 
 /**
@@ -8,7 +10,7 @@ import br.com.pelisoli.android_firebase.model.ShoppingList;
 public interface ShoppingListFragmentContract {
 
     interface View{
-        void showEntry(ShoppingList entry);
+        void showEntry(List<ShoppingList> shoppingLists);
 
         void showDetailFragment();
 

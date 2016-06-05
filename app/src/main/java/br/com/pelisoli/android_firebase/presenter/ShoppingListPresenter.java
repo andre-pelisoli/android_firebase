@@ -5,6 +5,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.pelisoli.android_firebase.model.ShoppingList;
@@ -29,22 +30,20 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
 
     @Override
     public void startListeningFirebase() {
-        Firebase firebaseRef;
-
         if (mFirebase != null) {
-            firebaseRef = mFirebase.child("activeList");
-
-            if (firebaseRef != null) {
-                firebaseRef.addValueEventListener(new ValueEventListener() {
+            if (mFirebase != null) {
+                mFirebase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<ShoppingList> shoppingLists = new ArrayList<>();
+
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            ShoppingList shoppingList = child.getValue(ShoppingList.class);
+                            shoppingLists.add(shoppingList);
+                        }
 
                         if (mView != null) {
-                            ShoppingList shoppingItem = dataSnapshot.getValue(ShoppingList.class);
-
-                            if(!itemExists(shoppingItem)) {
-                                mView.showEntry(shoppingItem);
-                            }
+                            mView.showEntry(shoppingLists);
                         }
                     }
 
@@ -60,20 +59,5 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
     @Override
     public void openDetailFragment() {
         mView.showDetailFragment();
-    }
-
-    private boolean itemExists(ShoppingList shoppingItem){
-        boolean status = false;
-
-        if (mShoppingList != null) {
-            for (ShoppingList item : mShoppingList) {
-                if(item.getId().toString().equals(shoppingItem.getId().toString())){
-                    status = true;
-                    break;
-                }
-            }
-        }
-
-        return status;
     }
 }

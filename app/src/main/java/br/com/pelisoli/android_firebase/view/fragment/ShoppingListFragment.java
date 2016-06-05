@@ -60,7 +60,7 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refListName = new Firebase(Constants.FIREBASE_URL);
+        refListName = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
         mShoppingListPresenter = new ShoppingListPresenter(mShoppingList, refListName, this);
         mShoppingListPresenter.startListeningFirebase();
 
@@ -70,8 +70,8 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
     }
 
     @Override
-    public void showEntry(ShoppingList entry) {
-        mShoppingListAdapter.addNewItem(entry);
+    public void showEntry(List<ShoppingList> shoppingLists) {
+        mShoppingListAdapter.addNewList(shoppingLists);
     }
 
     @Override

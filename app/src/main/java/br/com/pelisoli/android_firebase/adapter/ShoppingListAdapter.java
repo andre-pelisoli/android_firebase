@@ -47,7 +47,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         holder.mItemName.setText(mShoppingLists.get(position).getListName());
         holder.mItemOwner.setText(mShoppingLists.get(position).getOwner());
         holder.mItemTimestamp.setText(Utils.SIMPLE_DATE_FORMAT.format(
-                new Date((mShoppingLists.get(position).getDateLastChangedLong()))));
+                new Date((mShoppingLists.get(position).getTimestampLastChangedLong()))));
     }
 
     @Override
@@ -72,6 +72,11 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
             notifyItemInserted(mShoppingLists.size()-1);
         }
+    }
+
+    public void addNewList(List<ShoppingList> shoppingLists){
+        mShoppingLists = shoppingLists;
+        notifyDataSetChanged();
     }
 
     public class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

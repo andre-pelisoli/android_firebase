@@ -5,13 +5,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
@@ -29,7 +26,6 @@ public class EditListNameDialogFragment extends DialogFragment {
     private Firebase mFirebase;
 
     String currentName = "";
-
 
     private EditListNamePresenter mEditListNamePresenter;
 
@@ -81,18 +77,6 @@ public class EditListNameDialogFragment extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_edit_list_name, null);
 
         ButterKnife.bind(this, rootView);
-
-        mEdtListName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-
-                }
-
-                return true;
-            }
-        });
-
 
         builder.setView(rootView)
                 .setPositiveButton(R.string.positive_button_edit_item, new DialogInterface.OnClickListener() {
