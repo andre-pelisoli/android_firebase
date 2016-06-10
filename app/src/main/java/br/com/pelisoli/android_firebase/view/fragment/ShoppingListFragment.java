@@ -17,7 +17,7 @@ import com.firebase.client.Firebase;
 import java.util.List;
 
 import br.com.pelisoli.android_firebase.R;
-import br.com.pelisoli.android_firebase.adapter.ShoppingListAdapter;
+import br.com.pelisoli.android_firebase.adapter.ActiveListAdapter;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.ShoppingListPresenter;
 import br.com.pelisoli.android_firebase.utils.Constants;
@@ -46,7 +46,7 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
 
     Firebase refListName;
 
-    ShoppingListAdapter mShoppingListAdapter;
+    ActiveListAdapter mActiveListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,14 +64,15 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
         mShoppingListPresenter = new ShoppingListPresenter(mShoppingList, refListName, this);
         mShoppingListPresenter.startListeningFirebase();
 
-        mShoppingListAdapter = new ShoppingListAdapter(mShoppingList, this, getContext());
+        mActiveListAdapter = new ActiveListAdapter(ShoppingList.class, R.layout.item_holder, ActiveListAdapter.ViewHolder.class, refListName);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mShoppingListAdapter);
+        mRecyclerView.setAdapter(mActiveListAdapter);
     }
 
     @Override
     public void showEntry(List<ShoppingList> shoppingLists) {
-        mShoppingListAdapter.addNewList(shoppingLists);
+//        mActiveListAdapter.addNewList(shoppingLists);
     }
 
     @Override
