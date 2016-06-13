@@ -65,19 +65,15 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
         mShoppingListPresenter.startListeningFirebase();
 
         mActiveListAdapter = new ActiveListAdapter(ShoppingList.class, R.layout.item_holder, ActiveListAdapter.ViewHolder.class, refListName);
-
+        mActiveListAdapter.setIList(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mActiveListAdapter);
     }
 
     @Override
-    public void showEntry(List<ShoppingList> shoppingLists) {
-//        mActiveListAdapter.addNewList(shoppingLists);
-    }
-
-    @Override
-    public void showDetailFragment() {
+    public void showDetailFragment(String pushId) {
         Intent intent = new Intent(getContext(), ActiveListDetailsActivity.class);
+        intent.putExtra("id", pushId);
         startActivity(intent);
     }
 
@@ -88,8 +84,9 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
     }
 
     @Override
-    public void onListClicked(ShoppingList shoppingList) {
-        mShoppingListPresenter.openDetailFragment();
+    public void onListClicked(int position) {
+        String pushId = mActiveListAdapter.getRef(position).getKey();
+        mShoppingListPresenter.openDetailFragment(pushId);
     }
 
     @OnClick(R.id.fab)

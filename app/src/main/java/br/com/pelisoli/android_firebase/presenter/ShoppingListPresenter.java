@@ -41,10 +41,6 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
                             ShoppingList shoppingList = child.getValue(ShoppingList.class);
                             shoppingLists.add(shoppingList);
                         }
-
-                        if (mView != null) {
-                            mView.showEntry(shoppingLists);
-                        }
                     }
 
                     @Override
@@ -57,7 +53,7 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
     }
 
     @Override
-    public void openDetailFragment() {
-        mView.showDetailFragment();
+    public void openDetailFragment(String pushId) {
+        mView.showDetailFragment(pushId);
     }
 }

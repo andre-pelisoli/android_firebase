@@ -10,7 +10,6 @@ import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseRecyclerViewAdapter;
 
 import java.util.Date;
-import java.util.List;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
@@ -21,10 +20,7 @@ import butterknife.ButterKnife;
 
 public class ActiveListAdapter extends FirebaseRecyclerViewAdapter<ShoppingList, ActiveListAdapter.ViewHolder> {
 
-    private List<ShoppingList> mShoppingLists;
-
     private IList mIList;
-
 
     public ActiveListAdapter(Class<ShoppingList> modelClass, int modelLayout, Class<ViewHolder> viewHolderClass, Firebase ref) {
         super(modelClass, modelLayout, viewHolderClass, ref);
@@ -74,7 +70,7 @@ public class ActiveListAdapter extends FirebaseRecyclerViewAdapter<ShoppingList,
         @Override
         public void onClick(View v) {
             if (mIList != null) {
-                mIList.onListClicked(mShoppingLists.get(getLayoutPosition()));
+                mIList.onListClicked(getLayoutPosition());
             }
         }
     }

@@ -5,17 +5,12 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
 import br.com.pelisoli.android_firebase.R;
-import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.ActiveListDetailsPresenter;
 import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.contract.ActiveListDetaisContract;
@@ -29,7 +24,9 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
 
     private Firebase mActiveListRef;
 
-    private ShoppingList mShoppingList;
+    private String childId;
+
+    private String mShoppingListTitle;
 
     private ActiveListDetailsPresenter mActiveListDetailsPresenter;
 
@@ -38,36 +35,18 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.active_list_details_activity);
 
-        mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
         mActiveListDetailsPresenter = new ActiveListDetailsPresenter(this);
 
         initializeToolbar();
 
-        mActiveListRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
+        childId = getIntent().getStringExtra("id");
 
-                ShoppingList shoppingList = snapshot.getValue(ShoppingList.class);
-
-                if (shoppingList == null) {
-                    finish();
-                    return;
-                }
-                mShoppingList = shoppingList;
-
-                invalidateOptionsMenu();
-
-                setTitle(shoppingList.getListName());
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.e(LOG_TAG,
-                        getString(R.string.log_error_the_read_failed) +
-                                firebaseError.getMessage());
-            }
-        });
-
+        if(childId != null && !childId.isEmpty()){
+            mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST).child(childId);
+            mActiveListDetailsPresenter.startListeningFirebase(mActiveListRef);
+        }else {
+            closeActivity();
+        }
     }
 
     @Override
@@ -98,7 +77,7 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
 
         if (id == R.id.action_edit_list_name) {
             if (mActiveListDetailsPresenter != null) {
-                mActiveListDetailsPresenter.openEditDialog(mShoppingList);
+                mActiveListDetailsPresenter.openEditDialog(mShoppingListTitle, childId);
             }
             return true;
         }
@@ -134,8 +113,26 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
     }
 
     @Override
-    public void showEditDialog(String nameList) {
-        DialogFragment dialog = EditListNameDialogFragment.newInstance(nameList);
+    public void showEditDialog(String title, String childId) {
+        DialogFragment dialog = EditListNameDialogFragment.newInstance(title, childId);
         dialog.show(this.getSupportFragmentManager(), "EditListNameDialogFragment");
+    }
+
+    @Override
+    public void closeActivity() {
+        finish();
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void updateToolbarTitle(String titleName) {
+        invalidateOptionsMenu();
+
+        mShoppingListTitle = titleName;
+        setTitle(mShoppingListTitle);
     }
 }
