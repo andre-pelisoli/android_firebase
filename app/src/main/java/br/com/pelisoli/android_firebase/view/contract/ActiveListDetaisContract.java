@@ -8,7 +8,9 @@ import com.firebase.client.Firebase;
 public interface ActiveListDetaisContract {
 
     interface View{
-        void showEditDialog(String title, String childId);
+        void showEditDialog(String title, String listId);
+
+        void showRemoveDialog(String listId);
 
         void closeActivity();
 
@@ -18,7 +20,9 @@ public interface ActiveListDetaisContract {
     }
 
     interface Presenter{
-        void openEditDialog(String title, String childId);
+        void openEditDialog(String title, String listId);
+
+        void openRemoveDialog(String listId);
 
         void startListeningFirebase(Firebase rFirebase);
     }

@@ -21,9 +21,16 @@ public class ActiveListDetailsPresenter implements ActiveListDetaisContract.Pres
 
 
     @Override
-    public void openEditDialog(String title, String childId) {
+    public void openEditDialog(String title, String listId) {
         if(!isViewNull(mView)){
-            mView.showEditDialog(title, childId);
+            mView.showEditDialog(title, listId);
+        }
+    }
+
+    @Override
+    public void openRemoveDialog(String listId) {
+        if(!isViewNull(mView)){
+            mView.showRemoveDialog(listId);
         }
     }
 

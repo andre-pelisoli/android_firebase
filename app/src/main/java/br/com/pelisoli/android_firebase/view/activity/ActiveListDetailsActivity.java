@@ -15,6 +15,7 @@ import br.com.pelisoli.android_firebase.presenter.ActiveListDetailsPresenter;
 import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.contract.ActiveListDetaisContract;
 import br.com.pelisoli.android_firebase.view.dialog.EditListNameDialogFragment;
+import br.com.pelisoli.android_firebase.view.dialog.RemoveListDialogFragment;
 
 /**
  * Created by pelisoli on 31/05/16.
@@ -24,7 +25,7 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
 
     private Firebase mActiveListRef;
 
-    private String childId;
+    private String listId;
 
     private String mShoppingListTitle;
 
@@ -39,10 +40,10 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
 
         initializeToolbar();
 
-        childId = getIntent().getStringExtra("id");
+        listId = getIntent().getStringExtra("id");
 
-        if(childId != null && !childId.isEmpty()){
-            mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST).child(childId);
+        if(listId != null && !listId.isEmpty()){
+            mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST).child(listId);
             mActiveListDetailsPresenter.startListeningFirebase(mActiveListRef);
         }else {
             closeActivity();
@@ -77,12 +78,13 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
 
         if (id == R.id.action_edit_list_name) {
             if (mActiveListDetailsPresenter != null) {
-                mActiveListDetailsPresenter.openEditDialog(mShoppingListTitle, childId);
+                mActiveListDetailsPresenter.openEditDialog(mShoppingListTitle, listId);
             }
             return true;
         }
 
         if (id == R.id.action_remove_list) {
+            mActiveListDetailsPresenter.openRemoveDialog(listId);
             return true;
         }
 
@@ -113,9 +115,15 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
     }
 
     @Override
-    public void showEditDialog(String title, String childId) {
-        DialogFragment dialog = EditListNameDialogFragment.newInstance(title, childId);
+    public void showEditDialog(String title, String listId) {
+        DialogFragment dialog = EditListNameDialogFragment.newInstance(title, listId);
         dialog.show(this.getSupportFragmentManager(), "EditListNameDialogFragment");
+    }
+
+    @Override
+    public void showRemoveDialog(String listId) {
+        DialogFragment removeListDialogFragment = RemoveListDialogFragment.newInstance(listId);
+        removeListDialogFragment.show(this.getSupportFragmentManager(), "RemoveListDialogFragment");
     }
 
     @Override
