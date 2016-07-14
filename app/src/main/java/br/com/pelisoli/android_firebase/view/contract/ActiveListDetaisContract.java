@@ -1,6 +1,6 @@
 package br.com.pelisoli.android_firebase.view.contract;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * Created by pelisoli on 31/05/16.
@@ -24,7 +24,7 @@ public interface ActiveListDetaisContract {
 
         void openRemoveDialog(String listId);
 
-        void startListeningFirebase(Firebase rFirebase);
+        void startListeningFirebase(DatabaseReference rFirebase);
     }
 
 }

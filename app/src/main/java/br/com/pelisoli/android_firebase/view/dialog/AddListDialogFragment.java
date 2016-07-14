@@ -13,7 +13,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
@@ -32,7 +33,7 @@ public class AddListDialogFragment extends DialogFragment implements AddShopping
 
     AddListDialogPresenter mAddListDialogPresenter;
 
-    Firebase mFirebase;
+    DatabaseReference mDatabaseReference;
 
     public static AddListDialogFragment newInstance() {
         AddListDialogFragment addListDialogFragment = new AddListDialogFragment();
@@ -60,8 +61,8 @@ public class AddListDialogFragment extends DialogFragment implements AddShopping
 
         ButterKnife.bind(this, rootView);
 
-        mFirebase = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
-        mAddListDialogPresenter = new AddListDialogPresenter(mFirebase, this);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mAddListDialogPresenter = new AddListDialogPresenter(mDatabaseReference, this);
 
         mEditTextListName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1002834558760",
+    "firebase_url": "https://shoplist-pelisoli.firebaseio.com",
+    "project_id": "shoplist-pelisoli",
+    "storage_bucket": "shoplist-pelisoli.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002834558760:android:1b2f22c04fc9a621",
+        "android_client_info": {
+          "package_name": "br.com.pelisoli.android_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002834558760-pffm1eabufhpkprttr0t6j7fe30t632v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.pelisoli.android_firebase",
+            "certificate_hash": "4A3846E05A94CECD8EDFA43D407CA0888717F9F9"
+          }
+        },
+        {
+          "client_id": "1002834558760-9b20c5k9sjdsbkmn5l9dtmu28ijocog0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7C-prG5Op4wuJ1-W4qzhWuJJpLjDyfTU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002834558760-9b20c5k9sjdsbkmn5l9dtmu28ijocog0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

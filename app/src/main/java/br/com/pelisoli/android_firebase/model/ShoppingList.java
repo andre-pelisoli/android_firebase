@@ -1,7 +1,8 @@
 package br.com.pelisoli.android_firebase.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.firebase.client.ServerValue;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 

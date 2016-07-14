@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.presenter.RemoveListDialogPresenter;
@@ -39,7 +40,7 @@ public class RemoveListDialogFragment extends DialogFragment implements RemoveLi
         super.onCreate(savedInstanceState);
         mListId = getArguments().getString(Constants.KEY_LIST_ID);
 
-        Firebase mFirebase = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+        DatabaseReference mFirebase = FirebaseDatabase.getInstance().getReference();
         mPresenter = new RemoveListDialogPresenter(mFirebase, this);
     }
 

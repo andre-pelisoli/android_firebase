@@ -1,9 +1,10 @@
 package br.com.pelisoli.android_firebase.presenter;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,21 +19,21 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
 
     List<ShoppingList> mShoppingList;
 
-    Firebase mFirebase;
+    DatabaseReference mDatabaseReference;
 
     ShoppingListFragmentContract.View mView;
 
-    public ShoppingListPresenter(List<ShoppingList> shoppingList, Firebase firebase, ShoppingListFragmentContract.View view) {
+    public ShoppingListPresenter(List<ShoppingList> shoppingList, DatabaseReference databaseRef, ShoppingListFragmentContract.View view) {
         mShoppingList = shoppingList;
-        mFirebase = firebase;
+        mDatabaseReference = databaseRef;
         mView = view;
     }
 
     @Override
     public void startListeningFirebase() {
-        if (mFirebase != null) {
-            if (mFirebase != null) {
-                mFirebase.addValueEventListener(new ValueEventListener() {
+        if (mDatabaseReference != null) {
+            if (mDatabaseReference != null) {
+                mDatabaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<ShoppingList> shoppingLists = new ArrayList<>();
@@ -44,7 +45,7 @@ public class ShoppingListPresenter implements ShoppingListFragmentContract.Prese
                     }
 
                     @Override
-                    public void onCancelled(FirebaseError firebaseError) {
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });

@@ -1,9 +1,10 @@
 package br.com.pelisoli.android_firebase.presenter;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.view.contract.ActiveListDetaisContract;
@@ -35,34 +36,34 @@ public class ActiveListDetailsPresenter implements ActiveListDetaisContract.Pres
     }
 
     @Override
-    public void startListeningFirebase(Firebase refFirebase) {
+    public void startListeningFirebase(DatabaseReference refFirebase) {
         if (refFirebase != null) {
             refFirebase.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot snapshot) {
-
-                    ShoppingList shoppingList = snapshot.getValue(ShoppingList.class);
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    ShoppingList shoppingList = dataSnapshot.getValue(ShoppingList.class);
 
                     if (shoppingList == null) {
-                        if(!isViewNull(mView)){
+                        if (!isViewNull(mView)) {
                             mView.closeActivity();
                         }
-                    }else{
-                        if(!isViewNull(mView)){
+                    } else {
+                        if (!isViewNull(mView)) {
                             mView.updateToolbarTitle(shoppingList.getListName());
                         }
                     }
                 }
 
                 @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    if(!isViewNull(mView)){
+                public void onCancelled(DatabaseError databaseError) {
+                    if (!isViewNull(mView)) {
                         mView.showError();
                     }
                 }
             });
         }
     }
+
 
     private boolean isViewNull(ActiveListDetaisContract.View view){
         boolean status = false;

@@ -1,6 +1,6 @@
 package br.com.pelisoli.android_firebase.presenter;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
 
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.view.contract.AddShoppingDialogContract;
@@ -9,24 +9,24 @@ import br.com.pelisoli.android_firebase.view.contract.AddShoppingDialogContract;
  * Created by pelisoli on 09/05/16.
  */
 public class AddListDialogPresenter implements AddShoppingDialogContract.Presenter {
-    Firebase mFirebase;
+    DatabaseReference mDatabaseReference;
 
     AddShoppingDialogContract.View mView;
 
-    public AddListDialogPresenter(Firebase firebase, AddShoppingDialogContract.View view) {
-        mFirebase = firebase;
+    public AddListDialogPresenter(DatabaseReference databaseReference, AddShoppingDialogContract.View view) {
+        mDatabaseReference = databaseReference;
         mView = view;
     }
 
     @Override
     public void createEntry(ShoppingList shoppingList) {
         if (shoppingList != null) {
-            Firebase newFirebaseRef = mFirebase.push();
+            DatabaseReference newDatabaseRef = mDatabaseReference.push();
 
             /* Save listsRef.push() to maintain same random Id */
-            final String listId = newFirebaseRef.getKey();
+            final String listId = newDatabaseRef.getKey();
 
-            newFirebaseRef.setValue(shoppingList);
+            newDatabaseRef.setValue(shoppingList);
 
             if(mView != null){
                 mView.closeDialog(shoppingList);

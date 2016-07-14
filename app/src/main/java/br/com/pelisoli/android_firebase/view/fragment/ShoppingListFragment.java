@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.adapter.ActiveListAdapter;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.ShoppingListPresenter;
-import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.activity.ActiveListDetailsActivity;
 import br.com.pelisoli.android_firebase.view.contract.IList;
 import br.com.pelisoli.android_firebase.view.contract.ShoppingListFragmentContract;
@@ -44,7 +44,7 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
 
     List<ShoppingList> mShoppingList;
 
-    Firebase refListName;
+    DatabaseReference mDatabaseReference;
 
     ActiveListAdapter mActiveListAdapter;
 
@@ -60,11 +60,11 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        refListName = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
-        mShoppingListPresenter = new ShoppingListPresenter(mShoppingList, refListName, this);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mShoppingListPresenter = new ShoppingListPresenter(mShoppingList, mDatabaseReference, this);
         mShoppingListPresenter.startListeningFirebase();
 
-        mActiveListAdapter = new ActiveListAdapter(ShoppingList.class, R.layout.item_holder, ActiveListAdapter.ViewHolder.class, refListName);
+        mActiveListAdapter = new ActiveListAdapter(ShoppingList.class, R.layout.item_holder, ActiveListAdapter.ViewHolder.class, mDatabaseReference);
         mActiveListAdapter.setIList(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mActiveListAdapter);

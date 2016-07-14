@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.presenter.EditListNamePresenter;
-import br.com.pelisoli.android_firebase.utils.Constants;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,7 +23,7 @@ public class EditListNameDialogFragment extends DialogFragment {
     @BindView(R.id.edit_text_list_dialog)
     EditText mEdtListName;
 
-    private Firebase mFirebase;
+    private DatabaseReference mmDatabaseReference;
 
     private String currentName = "";
 
@@ -66,8 +66,8 @@ public class EditListNameDialogFragment extends DialogFragment {
         currentName = bundle.getString("listName");
         childId = bundle.getString("childId");
 
-        mFirebase = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST).child(childId);
-        mEditListNamePresenter = new EditListNamePresenter(mFirebase);
+        mmDatabaseReference = FirebaseDatabase.getInstance().getReference().child(childId);
+        mEditListNamePresenter = new EditListNamePresenter(mmDatabaseReference);
 
         mEdtListName.setText(currentName);
     }

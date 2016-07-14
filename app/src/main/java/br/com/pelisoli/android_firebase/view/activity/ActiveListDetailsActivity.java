@@ -8,11 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.presenter.ActiveListDetailsPresenter;
-import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.contract.ActiveListDetaisContract;
 import br.com.pelisoli.android_firebase.view.dialog.EditListNameDialogFragment;
 import br.com.pelisoli.android_firebase.view.dialog.RemoveListDialogFragment;
@@ -23,7 +23,7 @@ import br.com.pelisoli.android_firebase.view.dialog.RemoveListDialogFragment;
 public class ActiveListDetailsActivity extends AppCompatActivity implements ActiveListDetaisContract.View {
     private static final String LOG_TAG = ActiveListDetailsActivity.class.getSimpleName();
 
-    private Firebase mActiveListRef;
+    private DatabaseReference mDatabaseReference;
 
     private String listId;
 
@@ -43,8 +43,9 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
         listId = getIntent().getStringExtra("id");
 
         if(listId != null && !listId.isEmpty()){
-            mActiveListRef = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST).child(listId);
-            mActiveListDetailsPresenter.startListeningFirebase(mActiveListRef);
+            mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+            mDatabaseReference.child(listId);
+            mActiveListDetailsPresenter.startListeningFirebase(mDatabaseReference);
         }else {
             closeActivity();
         }

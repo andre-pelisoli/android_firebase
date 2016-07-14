@@ -1,7 +1,7 @@
 package br.com.pelisoli.android_firebase.presenter;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.ServerValue;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;
 
@@ -12,10 +12,10 @@ import br.com.pelisoli.android_firebase.view.contract.EditListNameContract;
  * Created by pelisoli on 31/05/16.
  */
 public class EditListNamePresenter implements EditListNameContract.Presenter {
-    Firebase mFirebaseRef;
+    DatabaseReference mDatabaseReference;
 
-    public EditListNamePresenter(Firebase firebaseRef) {
-        mFirebaseRef = firebaseRef;
+    public EditListNamePresenter(DatabaseReference databaseRef) {
+        mDatabaseReference = databaseRef;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class EditListNamePresenter implements EditListNameContract.Presenter {
 
         if(oldName != null && newName != null){
             if(!oldName.contentEquals(newName)){
-                if (mFirebaseRef != null) {
+                if (mDatabaseReference != null) {
                     HashMap<String, Object> updateObject = new HashMap<>();
                     HashMap<String, Object> changedTimestampMap = new HashMap<>();
 
@@ -31,7 +31,7 @@ public class EditListNamePresenter implements EditListNameContract.Presenter {
                     updateObject.put(Constants.FIREBASE_PROPERTY_LIST_NAME, newName);
 
                     updateObject.put(Constants.FIREBASE_PROPERTY_TIMESTAMP_LAST_CHANGED, changedTimestampMap);
-                    mFirebaseRef.updateChildren(updateObject);
+                    mDatabaseReference.updateChildren(updateObject);
                 }
             }
         }

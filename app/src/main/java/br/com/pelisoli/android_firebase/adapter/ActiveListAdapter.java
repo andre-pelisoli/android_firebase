@@ -6,23 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
-import com.firebase.ui.FirebaseRecyclerViewAdapter;
-
-import java.util.Date;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
-import br.com.pelisoli.android_firebase.utils.Utils;
 import br.com.pelisoli.android_firebase.view.contract.IList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActiveListAdapter extends FirebaseRecyclerViewAdapter<ShoppingList, ActiveListAdapter.ViewHolder> {
+public class ActiveListAdapter extends FirebaseRecyclerAdapter<ShoppingList, ActiveListAdapter.ViewHolder> {
 
     private IList mIList;
 
-    public ActiveListAdapter(Class<ShoppingList> modelClass, int modelLayout, Class<ViewHolder> viewHolderClass, Firebase ref) {
+    public ActiveListAdapter(Class<ShoppingList> modelClass, int modelLayout, Class<ViewHolder> viewHolderClass, DatabaseReference ref) {
         super(modelClass, modelLayout, viewHolderClass, ref);
     }
 
@@ -41,8 +38,13 @@ public class ActiveListAdapter extends FirebaseRecyclerViewAdapter<ShoppingList,
         ShoppingList shoppingList = getItem(position);
         holder.mItemName.setText(shoppingList.getListName());
         holder.mItemOwner.setText(shoppingList.getOwner());
-        holder.mItemTimestamp.setText(Utils.SIMPLE_DATE_FORMAT.format(
-                new Date((shoppingList.getTimestampLastChangedLong()))));
+//        holder.mItemTimestamp.setText(Utils.SIMPLE_DATE_FORMAT.format(
+//                new Date((shoppingList.getTimestampLastChangedLong()))));
+    }
+
+    @Override
+    protected void populateViewHolder(ViewHolder viewHolder, ShoppingList model, int position) {
+
     }
 
     public void setIList(IList IList) {
