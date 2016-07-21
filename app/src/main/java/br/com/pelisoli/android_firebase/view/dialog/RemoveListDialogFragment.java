@@ -40,7 +40,11 @@ public class RemoveListDialogFragment extends DialogFragment implements RemoveLi
         super.onCreate(savedInstanceState);
         mListId = getArguments().getString(Constants.KEY_LIST_ID);
 
-        DatabaseReference mFirebase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mFirebase = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_LOCATION_ACTIVE_LIST);
+
         mPresenter = new RemoveListDialogPresenter(mFirebase, this);
     }
 

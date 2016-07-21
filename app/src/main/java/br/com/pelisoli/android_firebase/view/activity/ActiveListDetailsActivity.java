@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.presenter.ActiveListDetailsPresenter;
+import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.contract.ActiveListDetaisContract;
 import br.com.pelisoli.android_firebase.view.dialog.EditListNameDialogFragment;
 import br.com.pelisoli.android_firebase.view.dialog.RemoveListDialogFragment;
@@ -43,7 +44,7 @@ public class ActiveListDetailsActivity extends AppCompatActivity implements Acti
         listId = getIntent().getStringExtra("id");
 
         if(listId != null && !listId.isEmpty()){
-            mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+            mDatabaseReference = FirebaseDatabase.getInstance().getReference().child(Constants.FIREBASE_LOCATION_ACTIVE_LIST);
             mDatabaseReference.child(listId);
             mActiveListDetailsPresenter.startListeningFirebase(mDatabaseReference);
         }else {

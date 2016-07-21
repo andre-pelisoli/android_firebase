@@ -21,6 +21,7 @@ import br.com.pelisoli.android_firebase.R;
 import br.com.pelisoli.android_firebase.adapter.ActiveListAdapter;
 import br.com.pelisoli.android_firebase.model.ShoppingList;
 import br.com.pelisoli.android_firebase.presenter.ShoppingListPresenter;
+import br.com.pelisoli.android_firebase.utils.Constants;
 import br.com.pelisoli.android_firebase.view.activity.ActiveListDetailsActivity;
 import br.com.pelisoli.android_firebase.view.contract.IList;
 import br.com.pelisoli.android_firebase.view.contract.ShoppingListFragmentContract;
@@ -60,7 +61,11 @@ public class ShoppingListFragment extends Fragment implements ShoppingListFragme
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mDatabaseReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_LOCATION_ACTIVE_LIST);
+
         mShoppingListPresenter = new ShoppingListPresenter(mShoppingList, mDatabaseReference, this);
         mShoppingListPresenter.startListeningFirebase();
 
